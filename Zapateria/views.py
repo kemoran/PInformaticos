@@ -47,3 +47,34 @@ def CambiarContra(request):
     else:
         iFrmContrasena = FrmContrasena()
     return render_to_response("CambiarContrasena.html", {'iFrmContrasena':iFrmContrasena}, context_instance=RequestContext(request))
+
+@permission_required('auth.Can add tbl salida', login_url='/')
+def ConsultarZapateria(request):
+    iTblZapateria = TblZapateria.objects.all()
+    return render_to_response("ConsultarZapateria.html", {'iTblZapateria':iTblZapateria}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def AgregarZapateria(request):
+    if request.method == 'POST':
+        iFrmZapateria = FrmZapateria(request.POST)
+        if iFrmZapateria.is_valid():
+            iFrmZapateria.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Zapateria/')
+    else:
+        iFrmZapateria = FrmZapateria()
+    return render_to_response('AgregarZapateria.html', {'iFrmZapateria':iFrmZapateria}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EditarZapateria(request, id_zapateria):
+    iTblZapateria = TblZapateria.objects.get(pk=id_zapateria)
+    if request.method == 'POST':
+        iFrmZapateria = FrmZapateria(request.POST, instance=iTblZapateria)
+        if iFrmZapateria.is_valid():
+            iFrmZapateria.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Zapateria/')
+    else:
+        iFrmZapateria = FrmZapateria(instance=iTblZapateria)
+    return render_to_response('AgregarZapateria.html', {'iFrmZapateria':iFrmZapateria}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EliminarZapateria(request, id_zapateria):
+    iTblZapateria = TblZapateria.objects.get(pk=id_zapateria)
+    iTblZapateria.delete()
+    return HttpResponseRedirect('/Catalogo/Consultar/Zapateria/')

@@ -18,8 +18,12 @@ urlpatterns = patterns('',
     url(r'^$', 'Zapateria.views.Acceso'),
     
     url(r'^Cerrar/$','Zapateria.views.Cerrar'),
-    
     url(r'^Usuario/Contrasena/$','Zapateria.views.CambiarContra'),
+    
+    url(r'^Catalogo/Consultar/Zapateria/$','Zapateria.views.ConsultarZapateria'),
+    url(r'^Catalogo/Agregar/Zapateria/$','Zapateria.views.AgregarZapateria'),
+    url(r'^Catalogo/Editar/Zapateria/(?P<id_zapateria>\d+)/$','Zapateria.views.EditarZapateria'),
+    url(r'^Catalogo/Eliminar/Zapateria/(?P<id_zapateria>\d+)/$','Zapateria.views.EliminarZapateria'),
     
     
 )
