@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Zapateria Calzado Ideal </title>
+		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/maqueta.css">
+		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/DT_bootstrap.css">
+		{% block CSS %}
+		{% endblock %}
+	</head>
+	<body>
+		{% if user.is_authenticated %}
+			{% if user.is_superuser %}
+				<div class="navbar">
+					<div class="navbar-inner">
+						<ul class="nav">
+							<!-- Menu -->
+							<li class="dropdown">
+						   		<a class="dropdown-toggle" data-toggle="dropdown"href="#">
+							   		Administracion de Catalogos <b class="caret"></b>
+							 	</a>
+							 	<ul class="dropdown-menu">
+							 		<li> <a href="{% url Zapateria.views.ConsultarZapateria %}"> Zapateria </a> </li>
+							 		<li> <a href="{% url Zapateria.views.ConsultarTalla %}"> Talla </a> </li>
+							 		<li> <a href="{% url Zapateria.views.ConsultarColor %}"> Color </a> </li>
+							 		<li> <a href="{% url Zapateria.views.ConsultarProveedor %}"> Proveedor </a> </li>
+							 		<li> <a href="{% url Zapateria.views.ConsultarTipo %}"> Tipo </a> </li>
+							 		<li> <a href="{% url Zapateria.views.ConsultarEstilo %}"> Estilo </a> </li>
+							 		<li> <a href="{% url Zapateria.views.ConsultarMarca %}"> Marca </a> </li>
+							 		<li> <a href="{% url Zapateria.views.ConsultarTipoEntrada %}"> Tipo de Entrada </a> </li>
+							 		<li> <a href="{% url Zapateria.views.ConsultarTipoSalida %}"> Tipo de Salida </a> </li>
+							 	</ul>
+							 </li>
+							 
+							 <!-- Menu -->
+							<li class="dropdown">
+						   		<a class="dropdown-toggle" data-toggle="dropdown"href="#">
+							   		Administracion de Cuentas <b class="caret"></b>
+							 	</a>
+								<ul class="dropdown-menu">
+							   		<li> <a href="#"> Administradores </a> </li>
+							   		<li> <a href="{% url Zapateria.views.ConsultarCobrador %}"> Cobradores </a> </li>
+							   	</ul>
+							</li>
+							
+							<!-- Menu -->
+							<li class="dropdown">
+						   		<a class="dropdown-toggle" data-toggle="dropdown"href="#">
+							   		Administracion de Inventario <b class="caret"></b>
+							 	</a>
+								<ul class="dropdown-menu">
+									<li> <a href="#"> Catalogo de Productos </a> </li>
+							   		<li> <a href="#"> Entrada de Productos </a> </li>
+							   		<li> <a href="#"> Salida de Productos </a> </li>
+							   		<li> <a href="#"> Existencia de Productos </a> </li>
+							   	</ul>
+							</li>
+							
+							<!-- Menu -->
+							<li class="dropdown">
+						   		<a class="dropdown-toggle" data-toggle="dropdown"href="#">
+							   		Reportes <b class="caret"></b>
+							 	</a>
+								<ul class="dropdown-menu">
+									<li> <a href="#"> Inventario Anual </a> </li>
+							   		<li> <a href="#"> Inventario Mensual </a> </li>
+							   	</ul>
+							</li>
+							 
+							 <!-- Menu -->
+							<li class="dropdown">
+						   		<a class="dropdown-toggle" data-toggle="dropdown"href="#">
+							   		Cuenta <b class="caret"></b>
+							 	</a>
+								<ul class="dropdown-menu">
+									<li> <a href="{% url Zapateria.views.CambiarContra %}"> Cambiar Contrasena </a> </li>
+							   		<li> <a href="{% url Zapateria.views.Cerrar %}"> Cerrar Sesion </a> </li>
+							   	</ul>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			{% else %}
+				<div class="navbar">
+					<div class="navbar-inner">
+						<ul class="nav">
+							<!-- Menu -->
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown"href="#">
+									Administracion de Inventario <b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li> <a href="#"> Salida de Productos </a> </li>
+									<li> <a href="#"> Existencia de Productos </a> </li>
+								</ul>
+							</li>
+							
+							<!-- Menu -->
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown"href="#">
+									Cuenta <b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li> <a href="{% url Zapateria.views.CambiarContra %}"> Cambiar Contrasena </a> </li>
+									<li> <a href="{% url Zapateria.views.Cerrar %}"> Cerrar Sesion </a> </li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			{% endif %}
+		{% endif %}
+		{% block Contenido %}
+		{% endblock %}
+		<footer>
+		</footer>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/bootbox.min.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/jquery.dataTables.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/DT_bootstrap.js"></script>
+		{% block Eliminar %}
+		{% endblock %}
+		{% block Cancelar %}
+		{% endblock %}
+		{% block Fechas %}
+		{% endblock %}
+	</body>
+</html>
