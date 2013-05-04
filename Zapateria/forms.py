@@ -34,3 +34,9 @@ class FrmMarca(forms.ModelForm):
         model = TblMarca
         exclude = ('id_marca')
         
+class FrmProveedor(forms.ModelForm):
+    class Meta:
+        model = TblProveedor
+        exclude = ('id_proveedor')
+        
+        

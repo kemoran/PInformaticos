@@ -240,3 +240,34 @@ def EliminarMarca(request, id_marca):
     iTblMarca.delete()
     return HttpResponseRedirect('/Catalogo/Consultar/Marca/')
 
+@permission_required('auth.Can add tbl salida', login_url='/')
+def ConsultarProveedor(request):
+    iTblProveedor = TblProveedor.objects.all()
+    return render_to_response("ConsultarProveedor.html", {'iTblProveedor':iTblProveedor}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def AgregarProveedor(request):
+    if request.method == 'POST':
+        iFrmProveedor = FrmProveedor(request.POST)
+        if iFrmProveedor.is_valid():
+            iFrmProveedor.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Proveedor/')
+    else:
+        iFrmProveedor = FrmProveedor()
+    return render_to_response('AgregarProveedor.html', {'iFrmProveedor':iFrmProveedor}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EditarProveedor(request, id_proveedor):
+    iTblProveedor = TblProveedor.objects.get(pk=id_proveedor)
+    if request.method == 'POST':
+        iFrmProveedor = FrmProveedor(request.POST, instance=iTblProveedor)
+        if iFrmProveedor.is_valid():
+            iFrmProveedor.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Proveedor/')
+    else:
+        iFrmProveedor = FrmProveedor(instance=iTblProveedor)
+    return render_to_response('EditarProveedor.html', {'iFrmProveedor':iFrmProveedor}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EliminarProveedor(request, id_proveedor):
+    iTblProveedor = TblProveedor.objects.get(pk=id_proveedor)
+    iTblProveedor.delete()
+    return HttpResponseRedirect('/Catalogo/Consultar/Proveedor/')
+

@@ -1,0 +1,60 @@
+{% extends 'Base.html' %}
+
+{% block Contenido %}
+	<!--<table class="table">-->
+	<section>
+	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+		<thead>
+			<tr>
+				<th> Nombre </th>
+				<th> Direccion </th>
+				<th> Telefono </th>
+				<th> Fax </th>
+				<th> Correo Electronico </th>
+				<th> Mantenimiento </th>
+			</tr>
+		</thead>
+			<tbody>
+				{% for i in iTblProveedor %}
+					<tr>
+						<th> {{i.nombre_proveedor}} </th>
+						<th> {{i.direccion_proveedor}} </th>
+						<th> {{i.telefono_proveedor}} </th>
+						<th> {{i.fax_proveedor}} </th>
+						<th> {{i.correo_electronico_proveedor}} </th>
+						<th>
+						<a href="{% url Zapateria.views.EditarProveedor i.id_proveedor %}" class="btn">
+							Editar
+						</a>
+						<button class="btn btn-danger" id="Eliminar" value="{{i.id_proveedor}}">
+							Eliminar
+						</button>
+						</th>
+					</tr>
+				{% empty %}
+					<tr>
+						<th colspan="6"> No hay Cobradores Agregados </th>
+					</tr>
+				{% endfor %}
+		</tbody>
+	</table>
+	<a href="{% url Zapateria.views.AgregarProveedor %}" class="btn btn-primary"> Agregar </a>
+	</section>
+{% endblock %}
+
+{% block Eliminar %}
+<script type="text/javascript">
+	$(document).on("click", "#Eliminar", function(e) {
+	 	var value = $(this).val();
+		bootbox.dialog("¿Seguro de Eliminar?", [{
+			"label" : "Cancelar"
+		}, {
+			"label" : "Eliminar",
+			"class" : "btn-primary",
+			"callback": function() {
+				location.href = "/Catalogo/Eliminar/Proveedor/"+value;
+			}
+		}]);
+	});
+</script>
+{% endblock %}
