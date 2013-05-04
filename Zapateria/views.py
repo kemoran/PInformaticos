@@ -146,3 +146,34 @@ def EliminarColor(request, id_color):
     iTblColor = TblColor.objects.get(pk=id_color)
     iTblColor.delete()
     return HttpResponseRedirect('/Catalogo/Consultar/Color/')
+
+@permission_required('auth.Can add tbl salida', login_url='/')
+def ConsultarTipo(request):
+    iTblTipo = TblTipo.objects.all()
+    return render_to_response("ConsultarTipo.html", {'iTblTipo':iTblTipo}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def AgregarTipo(request):
+    if request.method == 'POST':
+        iFrmTipo = FrmTipo(request.POST)
+        if iFrmTipo.is_valid():
+            iFrmTipo.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Tipo/')
+    else:
+        iFrmTipo = FrmTipo()
+    return render_to_response('AgregarTipo.html', {'iFrmTipo':iFrmTipo}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EditarTipo(request, id_tipo):
+    iTblTipo = TblTipo.objects.get(pk=id_tipo)
+    if request.method == 'POST':
+        iFrmTipo = FrmTipo(request.POST, instance=iTblTipo)
+        if iFrmTipo.is_valid():
+            iFrmTipo.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Tipo/')
+    else:
+        iFrmTipo = FrmTipo(instance=iTblTipo)
+    return render_to_response('EditarTipo.html', {'iFrmTipo':iFrmTipo}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EliminarTipo(request, id_estilo):
+    iTblTipo = TblTipo.objects.get(pk=id_estilo)
+    iTblTipo.delete()
+    return HttpResponseRedirect('/Catalogo/Consultar/Tipo/')

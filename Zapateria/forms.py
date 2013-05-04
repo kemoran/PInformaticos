@@ -18,3 +18,8 @@ class FrmColor(forms.ModelForm):
     class Meta:
         model = TblColor
         exclude = ('id_color')
+
+class FrmTipo(forms.ModelForm):
+    class Meta:
+        model = TblTipo
+        exclude = ('id_tipo')
