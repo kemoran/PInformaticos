@@ -177,3 +177,35 @@ def EliminarTipo(request, id_estilo):
     iTblTipo = TblTipo.objects.get(pk=id_estilo)
     iTblTipo.delete()
     return HttpResponseRedirect('/Catalogo/Consultar/Tipo/')
+
+@permission_required('auth.Can add tbl salida', login_url='/')
+def ConsultarEstilo(request):
+    iTblEstilo = TblEstilo.objects.all()
+    return render_to_response("ConsultarEstilo.html", {'iTblEstilo':iTblEstilo}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def AgregarEstilo(request):
+    if request.method == 'POST':
+        iFrmEstilo = FrmEstilo(request.POST)
+        if iFrmEstilo.is_valid():
+            iFrmEstilo.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Estilo/')
+    else:
+        iFrmEstilo = FrmEstilo()
+    return render_to_response('AgregarEstilo.html', {'iFrmEstilo':iFrmEstilo}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EditarEstilo(request, id_estilo):
+    iTblEstilo = TblEstilo.objects.get(pk=id_estilo)
+    if request.method == 'POST':
+        iFrmEstilo = FrmEstilo(request.POST, instance=iTblEstilo)
+        if iFrmEstilo.is_valid():
+            iFrmEstilo.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Estilo/')
+    else:
+        iFrmEstilo = FrmEstilo(instance=iTblEstilo)
+    return render_to_response('EditarEstilo.html', {'iFrmEstilo':iFrmEstilo}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EliminarEstilo(request, id_estilo):
+    iTblEstilo = TblEstilo.objects.get(pk=id_estilo)
+    iTblEstilo.delete()
+    return HttpResponseRedirect('/Catalogo/Consultar/Estilo/')
+

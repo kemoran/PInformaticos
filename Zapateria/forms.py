@@ -23,3 +23,9 @@ class FrmTipo(forms.ModelForm):
     class Meta:
         model = TblTipo
         exclude = ('id_tipo')
+
+class FrmEstilo(forms.ModelForm):
+    class Meta:
+        model = TblEstilo
+        exclude = ('id_estilo')
+        
