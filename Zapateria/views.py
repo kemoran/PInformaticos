@@ -271,3 +271,34 @@ def EliminarProveedor(request, id_proveedor):
     iTblProveedor.delete()
     return HttpResponseRedirect('/Catalogo/Consultar/Proveedor/')
 
+@permission_required('auth.Can add tbl salida', login_url='/')
+def ConsultarTipoEntrada(request):
+    iTblTipoEntrada = TblTipoEntrada.objects.all()
+    return render_to_response("ConsultarTipoEntrada.html", {'iTblTipoEntrada':iTblTipoEntrada}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def AgregarTipoEntrada(request):
+    if request.method == 'POST':
+        iFrmTipoEntrada = FrmTipoEntrada(request.POST)
+        if iFrmTipoEntrada.is_valid():
+            iFrmTipoEntrada.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/TipoEntrada/')
+    else:
+        iFrmTipoEntrada = FrmTipoEntrada()
+    return render_to_response('AgregarTipoEntrada.html', {'iFrmTipoEntrada':iFrmTipoEntrada}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EditarTipoEntrada(request, id_tipo_entrada):
+    iTblTipoEntrada = TblTipoEntrada.objects.get(pk=id_tipo_entrada)
+    if request.method == 'POST':
+        iFrmTipoEntrada = FrmTipoEntrada(request.POST, instance=iTblTipoEntrada)
+        if iFrmTipoEntrada.is_valid():
+            iFrmTipoEntrada.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/TipoEntrada/')
+    else:
+        iFrmTipoEntrada = FrmTipoEntrada(instance=iTblTipoEntrada)
+    return render_to_response('EditarTipoEntrada.html', {'iFrmTipoEntrada':iFrmTipoEntrada}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EliminarTipoEntrada(request, id_tipo_entrada):
+    iTblTipoEntrada = TblTipoEntrada.objects.get(pk=id_tipo_entrada)
+    iTblTipoEntrada.delete()
+    return HttpResponseRedirect('/Catalogo/Consultar/TipoEntrada/')
+
