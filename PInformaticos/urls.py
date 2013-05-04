@@ -60,4 +60,9 @@ urlpatterns = patterns('',
     url(r'^Catalogo/Editar/TipoEntrada/(?P<id_tipo_entrada>\d+)/$','Zapateria.views.EditarTipoEntrada'),
     url(r'^Catalogo/Eliminar/TipoEntrada/(?P<id_tipo_entrada>\d+)/$','Zapateria.views.EliminarTipoEntrada'),
     
+    url(r'^Catalogo/Consultar/TipoSalida/$','Zapateria.views.ConsultarTipoSalida'),
+    url(r'^Catalogo/Agregar/TipoSalida/$','Zapateria.views.AgregarTipoSalida'),
+    url(r'^Catalogo/Editar/TipoSalida/(?P<id_tipo_salida>\d+)/$','Zapateria.views.EditarTipoSalida'),
+    url(r'^Catalogo/Eliminar/TipoSalida/(?P<id_tipo_salida>\d+)/$','Zapateria.views.EliminarTipoSalida'),
+    
 )

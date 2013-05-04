@@ -43,3 +43,9 @@ class FrmTipoEntrada(forms.ModelForm):
     class Meta:
         model = TblTipoEntrada
         exclude = ('id_tipo_entrada')
+        
+class FrmTipoSalida(forms.ModelForm):
+    class Meta:
+        model = TblTipoSalida
+        exclude = ('id_tipo_salida')
+        
