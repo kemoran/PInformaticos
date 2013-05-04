@@ -45,5 +45,10 @@ urlpatterns = patterns('',
     url(r'^Catalogo/Editar/Estilo/(?P<id_estilo>\d+)/$','Zapateria.views.EditarEstilo'),
     url(r'^Catalogo/Eliminar/Estilo/(?P<id_estilo>\d+)/$','Zapateria.views.EliminarEstilo'),
     
+    url(r'^Catalogo/Consultar/Marca/$','Zapateria.views.ConsultarMarca'),
+    url(r'^Catalogo/Agregar/Marca/$','Zapateria.views.AgregarMarca'),
+    url(r'^Catalogo/Editar/Marca/(?P<id_marca>\d+)/$','Zapateria.views.EditarMarca'),
+    url(r'^Catalogo/Eliminar/Marca/(?P<id_marca>\d+)/$','Zapateria.views.EliminarMarca'),
+    
     
 )

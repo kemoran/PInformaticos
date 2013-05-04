@@ -28,4 +28,9 @@ class FrmEstilo(forms.ModelForm):
     class Meta:
         model = TblEstilo
         exclude = ('id_estilo')
+
+class FrmMarca(forms.ModelForm):
+    class Meta:
+        model = TblMarca
+        exclude = ('id_marca')
         

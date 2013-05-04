@@ -209,3 +209,34 @@ def EliminarEstilo(request, id_estilo):
     iTblEstilo.delete()
     return HttpResponseRedirect('/Catalogo/Consultar/Estilo/')
 
+@permission_required('auth.Can add tbl salida', login_url='/')
+def ConsultarMarca(request):
+    iTblMarca = TblMarca.objects.all()
+    return render_to_response("ConsultarMarca.html", {'iTblMarca':iTblMarca}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def AgregarMarca(request):
+    if request.method == 'POST':
+        iFrmMarca = FrmMarca(request.POST)
+        if iFrmMarca.is_valid():
+            iFrmMarca.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Marca/')
+    else:
+        iFrmMarca = FrmMarca()
+    return render_to_response('AgregarMarca.html', {'iFrmMarca':iFrmMarca}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EditarMarca(request, id_marca):
+    iTblMarca = TblMarca.objects.get(pk=id_marca)
+    if request.method == 'POST':
+        iFrmMarca = FrmMarca(request.POST, instance=iTblMarca)
+        if iFrmMarca.is_valid():
+            iFrmMarca.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Marca/')
+    else:
+        iFrmMarca = FrmMarca(instance=iTblMarca)
+    return render_to_response('EditarMarca.html', {'iFrmMarca':iFrmMarca}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EliminarMarca(request, id_marca):
+    iTblMarca = TblMarca.objects.get(pk=id_marca)
+    iTblMarca.delete()
+    return HttpResponseRedirect('/Catalogo/Consultar/Marca/')
+
