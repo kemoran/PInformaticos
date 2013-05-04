@@ -17,5 +17,9 @@ urlpatterns = patterns('',
     
     url(r'^$', 'Zapateria.views.Acceso'),
     
+    url(r'^Cerrar/$','Zapateria.views.Cerrar'),
+    
+    url(r'^Usuario/Contrasena/$','Zapateria.views.CambiarContra'),
+    
     
 )

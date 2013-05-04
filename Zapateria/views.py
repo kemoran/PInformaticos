@@ -29,3 +29,21 @@ def Acceso(request):
         iFrmAcceso = AuthenticationForm()
     return render_to_response("Acceso.html", {'iFrmAcceso':iFrmAcceso, 'Mensaje':Mensaje} , context_instance=RequestContext(request))
 
+@login_required(login_url='/')
+def Cerrar(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+
+@login_required(login_url='/')
+def CambiarContra(request):
+    if request.method == 'POST':
+        iFrmContrasena = FrmContrasena(request.POST)
+        if iFrmContrasena.is_valid():
+            iUser = User.objects.get(username=request.user.username)
+            iUser.set_password(request.POST['Nueva_Contrasena'])
+            iUser.save()
+            return HttpResponseRedirect('/')
+    else:
+        iFrmContrasena = FrmContrasena()
+    return render_to_response("CambiarContrasena.html", {'iFrmContrasena':iFrmContrasena}, context_instance=RequestContext(request))

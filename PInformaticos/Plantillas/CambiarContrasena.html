@@ -1,0 +1,13 @@
+{% extends 'Base.html' %}
+
+{% block Contenido %}
+	<aside>
+		<form method="post"> {% csrf_token %}
+			<fieldset>
+				<legend> Cambiar Contrase&ntilde;a </legend>
+				{{ iFrmContrasena }}<br>
+				<button type="submit" class="btn"> Cambiar </button>
+			</fielset>
+		</form>
+	</aside>
+{% endblock %}
