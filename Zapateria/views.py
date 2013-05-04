@@ -78,3 +78,34 @@ def EliminarZapateria(request, id_zapateria):
     iTblZapateria = TblZapateria.objects.get(pk=id_zapateria)
     iTblZapateria.delete()
     return HttpResponseRedirect('/Catalogo/Consultar/Zapateria/')
+
+@permission_required('auth.Can add tbl salida', login_url='/')
+def ConsultarTalla(request):
+    iTblTalla = TblTalla.objects.all()
+    return render_to_response("ConsultarTalla.html", {'iTblTalla':iTblTalla}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def AgregarTalla(request):
+    if request.method == 'POST':
+        iFrmTalla = FrmTalla(request.POST)
+        if iFrmTalla.is_valid():
+            iFrmTalla.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Talla/')
+    else:
+        iFrmTalla = FrmTalla()
+    return render_to_response('AgregarTalla.html', {'iFrmTalla':iFrmTalla}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EditarTalla(request, id_talla):
+    iTblTalla = TblTalla.objects.get(pk=id_talla)
+    if request.method == 'POST':
+        iFrmTalla = FrmTalla(request.POST, instance=iTblTalla)
+        if iFrmTalla.is_valid():
+            iFrmTalla.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Talla/')
+    else:
+        iFrmTalla = FrmTalla(instance=iTblTalla)
+    return render_to_response('AgregarTalla.html', {'iFrmTalla':iFrmTalla}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EliminarTalla(request, id_talla):
+    iTblTalla = TblTalla.objects.get(pk=id_talla)
+    iTblTalla.delete()
+    return HttpResponseRedirect('/Catalogo/Consultar/Talla/')

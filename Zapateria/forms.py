@@ -8,3 +8,9 @@ class FrmZapateria(forms.ModelForm): # Formulario para Agregar y Editar Empresas
     class Meta:
         model = TblZapateria
         exclude = ('id_zapateria')
+
+class FrmTalla(forms.ModelForm):
+    class Meta:
+        model = TblTalla
+        exclude = ('id_talla')
+        
