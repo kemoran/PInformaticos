@@ -1,0 +1,30 @@
+{% extends 'Base.html' %}
+
+{% block Contenido %}
+	<aside>
+		<form method="post"> {% csrf_token %}
+			<fieldset>
+				<legend> Agregar Tipo Salida </legend>
+				{{ iFrmTipoSalida }}<br>
+				<button type="submit" class="btn"> Guardar </button>
+				<button type="button" class="btn btn-danger" id="Cancelar"> Cancelar </button>
+			</fielset>
+		</form>
+	</aside>
+{% endblock %}
+
+{% block Cancelar %}
+<script type="text/javascript">
+	$(document).on("click", "#Cancelar", function(e) {
+	 	bootbox.dialog("¿Seguro que desea Cancelar?", [{
+			"label" : "No"
+		}, {
+			"label" : "Si",
+			"class" : "btn-primary",
+			"callback": function() {
+				location.href = "/Catalogo/Consultar/TipoSalida/";
+			}
+		}]);
+	});
+</script>
+{% endblock %}
