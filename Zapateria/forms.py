@@ -48,4 +48,28 @@ class FrmTipoSalida(forms.ModelForm):
     class Meta:
         model = TblTipoSalida
         exclude = ('id_tipo_salida')
+
+class FrmCobrador(forms.ModelForm):
+    genero_personal = forms.ChoiceField(choices=GENERO, widget=forms.RadioSelect())
+    fecha_nacimiento_personal = forms.CharField(widget=forms.TextInput(attrs={'data-date-format':'yyyy-mm-dd' , 'class':'datepicker'}))
+    Nombre_de_usuario = forms.CharField()
+    Contrasena = forms.CharField(widget=forms.PasswordInput)
+    class Meta:
+        model = TblPersonal
+        fields = ('nombre_personal',
+                  'apellido_personal',
+                  'genero_personal',
+                  'fecha_nacimiento_personal',
+                  'dui_personal',
+                  'nit_personal',
+                  'telefono_personal',
+                  'direccion_personal',
+                  'correo_electronico_personal')
+
+class FrmCobradorEditar(forms.ModelForm):
+    class Meta:
+        model = TblPersonal
+        fields = ('telefono_personal',
+                  'direccion_personal',
+                  'correo_electronico_personal')
         

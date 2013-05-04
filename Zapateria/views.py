@@ -333,4 +333,51 @@ def EliminarTipoSalida(request, id_tipo_salida):
     iTblTipoSalida.delete()
     return HttpResponseRedirect('/Catalogo/Consultar/TipoSalida/')
 
-
+@permission_required('auth.Can add tbl salida', login_url='/')
+def ConsultarCobrador(request):
+    iTblPersonal = TblPersonal.objects.all()
+    return render_to_response("ConsultarCobrador.html", {'iTblPersonal':iTblPersonal}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def AgregarCobrador(request):
+    Mensaje = ""
+    if request.method == 'POST':
+        iFrmCobrador = FrmCobrador(request.POST)
+        if iFrmCobrador.is_valid():
+            try:
+                iUser = User.objects.create_user(request.POST['Nombre_de_usuario'],
+                                                 request.POST['correo_electronico_personal'],
+                                                 request.POST['Contrasena'])
+                iUser.save()
+                idU = User.objects.latest('id')
+                permiso = Permission.objects.get(name='Can add tbl salida')
+                idU.user_permissions.add(permiso)
+                NiFrmCobrador = iFrmCobrador.save(commit=False)
+                NiFrmCobrador.user = idU
+                idZ = TblZapateria.objects.get(pk=1)
+                NiFrmCobrador.id_zapateria = idZ
+                NiFrmCobrador.save()
+                return HttpResponseRedirect('/Catalogo/Consultar/Cobrador/')
+            except Exception as e:
+                Mensaje = "Nombre de Usuario ya existe."
+                iFrmCobrador = FrmCobrador()
+    else:
+        iFrmCobrador = FrmCobrador()
+    return render_to_response('AgregarCobrador.html', {'iFrmCobrador':iFrmCobrador, 'Mensaje':Mensaje}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EditarCobrador(request, id_personal):
+    iTblPersonal = TblPersonal.objects.get(pk=id_personal)
+    if request.method == 'POST':
+        iFrmCobradorEditar = FrmCobradorEditar(request.POST, instance=iTblPersonal)
+        if iFrmCobradorEditar.is_valid():
+            iFrmCobradorEditar.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Cobrador/')
+    else:
+        iFrmCobradorEditar = FrmCobradorEditar(instance=iTblPersonal)
+    return render_to_response('EditarCobrador.html', {'iFrmCobradorEditar':iFrmCobradorEditar}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EliminarCobrador(request, id_personal):
+    iTblPersonal = TblPersonal.objects.get(pk=id_personal)
+    iUser = User.objects.get(pk=iTblPersonal.user_id)
+    iUser.delete()
+    iTblPersonal.delete()
+    return HttpResponseRedirect('/Catalogo/Consultar/Cobrador/')
