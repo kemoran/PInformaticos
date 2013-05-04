@@ -109,3 +109,40 @@ def EliminarTalla(request, id_talla):
     iTblTalla = TblTalla.objects.get(pk=id_talla)
     iTblTalla.delete()
     return HttpResponseRedirect('/Catalogo/Consultar/Talla/')
+
+@permission_required('auth.Can add tbl salida', login_url='/')
+def ConsultarColor(request):
+    iTblColor = TblColor.objects.all()
+    return render_to_response("ConsultarColor.html", {'iTblColor':iTblColor}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def AgregarColor(request):
+    Mensaje = ""
+    if request.method == 'POST':
+        iFrmColor = FrmColor(request.POST)
+        if iFrmColor.is_valid():
+            try:
+                iTblColor = TblColor.objects.get(descripcion_color=request.POST['descripcion_color'])
+                Mensaje = "Color ya Existe"
+                iFrmColor = FrmColor()
+            except ObjectDoesNotExist, e:
+                iFrmColor.save()
+                return HttpResponseRedirect('/Catalogo/Consultar/Color/')
+    else:
+        iFrmColor = FrmColor()
+    return render_to_response('AgregarColor.html', {'iFrmColor':iFrmColor, 'Mensaje':Mensaje}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EditarColor(request, id_color):
+    iTblColor = TblColor.objects.get(pk=id_color)
+    if request.method == 'POST':
+        iFrmColor = FrmColor(request.POST, instance=iTblColor)
+        if iFrmColor.is_valid():
+            iFrmColor.save()
+            return HttpResponseRedirect('/Catalogo/Consultar/Color/')
+    else:
+        iFrmColor = FrmColor(instance=iTblColor)
+    return render_to_response('EditarColor.html', {'iFrmColor':iFrmColor}, context_instance=RequestContext(request))
+@permission_required('auth.Can add tbl salida', login_url='/')
+def EliminarColor(request, id_color):
+    iTblColor = TblColor.objects.get(pk=id_color)
+    iTblColor.delete()
+    return HttpResponseRedirect('/Catalogo/Consultar/Color/')

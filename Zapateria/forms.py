@@ -14,3 +14,7 @@ class FrmTalla(forms.ModelForm):
         model = TblTalla
         exclude = ('id_talla')
         
+class FrmColor(forms.ModelForm):
+    class Meta:
+        model = TblColor
+        exclude = ('id_color')
