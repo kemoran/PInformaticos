@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationErro
+from django.core.exceptions import ValidationError
 import re
 
 # Create your models here.
@@ -11,7 +11,7 @@ GENERO = (
 )
 
 def ValidarDUI(value):
-    if re.match("^\d{8}-\d{1}$", value == None:
+    if re.match("^\d{8}-\d{1}$", value) == None:
         raise ValidationError(u'%s DUI Incorrecto' % value)
 
 def ValidarLetra(value):
