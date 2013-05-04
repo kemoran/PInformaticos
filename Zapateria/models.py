@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationErro
+from django.core.exceptions import ValidationError
 import re
 
 # Create your models here.
@@ -11,11 +11,11 @@ GENERO = (
 )
 
 def ValidarDUI(value):
-    if re.match("^\d{8}-\d{1}$", value == None:
+    if re.match("^\d{8}-\d{1}$", value) == None:
         raise ValidationError(u'%s DUI Incorrecto' % value)
 
 def ValidarLetra(value):
-    if re.match("^\W+$", value) == None:
+    if re.match("^[a-zA-Z]+$", value) == None:
         raise ValidationError(u'%s Dato Incorrecto' % value)
 
 def ValidarNumero(value):
@@ -88,7 +88,8 @@ class TblPersonal(models.Model):
     user = models.ForeignKey(User, unique=True)
     nombre_personal = models.CharField(max_length=30, help_text="Ejemplo: Juan", validators=[ValidarLetra])
     apellido_personal = models.CharField(max_length=30, help_text="Ejemplo: Perez", validators=[ValidarLetra])
-    genero_personal = models.CharField(max_length=1, choices=GENERO)
+    #genero_personal = models.CharField(max_length=1, choices=GENERO)
+    genero_personal = models.CharField(max_length=1)
     fecha_nacimiento_personal = models.DateField()
     dui_personal = models.CharField(max_length=10, help_text="Ejemplo: 00000000-0", validators=[ValidarDUI])
     nit_personal = models.CharField(max_length=17, help_text="Ejemplo: 0000-000000-000-0", validators=[ValidarNIT])
